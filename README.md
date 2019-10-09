@@ -6,4 +6,3 @@ Popup video with plyr.io and bootstrap4
   Play  Youtube and Vimeo Video with plyr.io in Modal - Bootstrap 4</a> by Bahadır Doğru (<a href="https://codepen.io/bahadirdogru">@bahadirdogru</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
