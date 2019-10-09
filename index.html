@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modal Plyr.io</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/JacobLett/bootstrap4-latest/master/bootstrap-4-latest.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="https://cdn.rawgit.com/JacobLett/bootstrap4-latest/master/bootstrap-4-latest.min.js"></script>
+    <script src="https://cdn.plyr.io/3.5.6/plyr.js"></script>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
+    <style>
+        body {margin:2rem;}
+
+        .modal-dialog {
+              max-width: 800px;
+              margin: 30px auto;
+          }
+
+        .modal-body {
+          position:relative;
+          padding:0px;
+        }
+        .close {
+          position:absolute;
+          right:-30px;
+          top:0;
+          z-index:999;
+          font-size:2rem;
+          font-weight: normal;
+          color:#fff;
+          opacity:1;
+        }
+
+        .plyr {
+          border-radius: 4px;
+        } 
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Play Vimeo Videos with plyr.io in Bootstrap 4 Modal</h1>
+    
+     
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary video-btn" data-toggle="modal" data-type="vimeo" data-src="58385453" data-target="#myModal">
+            Play Vimeo Video
+        </button>
+
+        <button type="button" class="btn btn-primary video-btn" data-toggle="modal" data-type="youtube" data-src="WLXqbuV25_M" data-target="#myModal">
+            Play Youtube Video
+        </button>
+    
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+    
+                    <div class="modal-body">
+    
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <!-- responsive embedding -->
+                        <div class="embed-responsive">
+                            <!--here come the plyr.io codes from js -->
+                        </div>
+    
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    
+    
+    <script>
+          $(document).ready(function() {
+                // Create video element
+                const video = document.createElement('video');
+                        video.classList.add('player');
+                        video.id = "player";
+                document.querySelectorAll('.modal-body')[0].appendChild(video);
+                const player = new Plyr('.player');
+              // Gets the video src from the data-src on each button
+              var $videoSrc;  
+              $('.video-btn').click(function() {
+                debugger;
+                  $videoSrc = $(this).data( "src" );
+                  $videoType = $(this).data( "type" );
+
+                          player.source = {
+                              type: 'video',
+                              sources: [
+                                  {
+                                      src: $videoSrc,
+                                      provider: $videoType,
+                                  },
+                              ],
+                          };
+              });
+              console.log($videoSrc);
+
+              // Bind event listener
+                function on(selector, type, callback) {
+                  document.querySelector(selector).addEventListener(type, callback, false);
+                }
+                
+              // when the modal is opened autoplay it  
+              $('#myModal').on('shown.bs.modal', function (e) {
+                  
+                // This is the bare minimum JavaScript. You can opt to pass no arguments to setup.
+                const player = new Plyr('#player');
+                
+                // Expose
+                window.player = player;
+              });
+
+              // stop playing the youtube video when I close the modal
+              $('#myModal').on('hide.bs.modal', function (e) {
+                  // a poor man's stop video
+                  //$("#video").attr('src',$videoSrc); 
+                  player.stop();
+              });
+      // document ready  
+      });
+
+</script>
+</body>
+</html>
